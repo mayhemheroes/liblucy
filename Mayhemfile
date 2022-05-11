@@ -1,0 +1,5 @@
+project: rnshah9/mayhem-liblucy
+target: lucyc
+
+cmds:
+  - cmd: /liblucy/bin/lucyc @@
