@@ -1,0 +1,29 @@
+name: Releases
+
+on: 
+  push:
+    tags:
+    - '*'
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            name: linux
+          - os: macos-latest
+            name: mac
+    steps:
+    - uses: actions/checkout@v1
+    - name: build
+      run: |
+        make bin/lucyc
+        cd bin && tar -zcvf ../${{ matrix.name }}.tar.gz lucyc && cd -
+    - uses: ncipollo/release-action@v1
+      with:
+        allowUpdates: true
+        prerelease: false
+        artifacts: ${{ matrix.name }}.tar.gz
+        token: ${{ secrets.GITHUB_TOKEN }}

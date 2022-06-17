@@ -1,0 +1,30 @@
+name: Lucy CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - uses: mymindstorm/setup-emsdk@v7
+
+    - name: Install colordiff
+      run: sudo apt-get install colordiff
+
+    - name: make test
+      run: |
+        make bin/lucyc
+        make dist/liblucy-debug-node.mjs
+        make dist/liblucy-release-node.mjs
+        make test
