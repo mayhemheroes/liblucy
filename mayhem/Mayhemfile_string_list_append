@@ -1,0 +1,6 @@
+project: liblucy
+target: string-list-append
+
+cmds:
+  - cmd: /fuzz_string_list_append
+    libfuzzer: true

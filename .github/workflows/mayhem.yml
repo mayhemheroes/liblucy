@@ -59,7 +59,8 @@ jobs:
       fail-fast: false
       matrix:
         mayhemfile:
-          - mayhem/Mayhemfile
+          - mayhem/Mayhemfile_string_list_append
+          - mayhem/Mayhemfile_lucyc
 
     steps:
       - uses: actions/checkout@v3
